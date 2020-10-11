@@ -1,0 +1,100 @@
+server:
+  port: 88
+
+spring:
+  application:
+    name: goop-gateway
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848   #虚拟机 nacos地址
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+      routes:
+
+        - id: product-route
+          uri: lb://goop-product
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: member-route
+          uri: lb://goop-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: coupon-route
+          uri: lb://goop-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: ware-route
+          uri: lb://goop-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: admin-route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+
+        - id: goop-product-route
+          uri: lb://goop-product
+          predicates:
+            - Host=goop.com,item.goop.com
+
+        - id: goop-search-route
+          uri: lb://goop-search
+          predicates:
+            - Host=search.goop.com
+
+        - id: goop-auth-route
+          uri: lb://goop-auth
+          predicates:
+            - Host=auth.goop.com
+
+        - id: goop-cart-route
+          uri: lb://goop-cart
+          predicates:
+            - Host=cart.goop.com
+
+        - id: goop-order-route
+          uri: lb://goop-order
+          predicates:
+            - Host=order.goop.com
+
+        - id: goop-member-route
+          uri: lb://goop-member
+          predicates:
+            - Host=member.goop.com
+
+        - id: goop-seckill-route
+          uri: lb://goop-seckill
+          predicates:
+            - Host=seckill.goop.com
+
+
+        - id: payment_routh #payment_route                #路由的ID，没有固定规则但要求唯一，建议配合服务名
+          #uri: http://localhost:8001                     #匹配后提供服务的路由地址、以ip地址
+          uri: lb://cloud-payment-service                 #匹配后提供服务的路由地址、以注册服务名
+          predicates:
+            - Path=/payment/lb/**                         # 断言，路径相匹配的进行路由
+            #- After=2020-02-21T15:51:37.485+08:00[Asia/Shanghai]
+            #- Cookie=username,zzyy
+            #- Header=X-Request-Id, \d+  # 请求头要有X-Request-Id属性并且值为整数的正则表达式
+
+
+

@@ -1,0 +1,58 @@
+server:
+  port: 999
+
+spring:
+  application:
+    name: goop-seckill
+
+  # nacos
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+#    sentinel:
+#      transport:
+#        #配置sentinel dashboard地址
+#        dashboard: localhost:8080
+#        #与控制台通信端口，假如被占用会自动从8719开始依次+1扫描，直至找到未被占用的端口
+#        port: 8719
+
+  #RibbitMQ
+  rabbitmq:
+    host: 192.168.56.10
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    #开启发送端确认、确认被mq服务器交换机接收
+    publisher-confirms: true
+    #开启发送端消息抵达队列的确认、确认被路由到队列
+    publisher-returns: true
+    #只要抵达队列，以异步方式优先回调returnConfirm
+    template:
+      mandatory: true
+    #手动ack确认收到消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+
+#  #db
+#  datasource:
+#    username: root
+#    password: root
+#    url: jdbc:mysql://192.168.56.10:3306/db_sms
+#    driver-class-name: com.mysql.jdbc.Driver
+
+  #Redis配置
+  redis:
+    host: 192.168.56.10
+#mybatis-plus:
+#  mapper-locations: classpath:/mapper/**/*.xml
+#  global-config:
+#    db-config:
+#      id-type: auto
+
+#开启feign对sentinel的支持
+#feign:
+#  sentinel:
+#    enabled: true

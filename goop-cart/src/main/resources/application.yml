@@ -1,0 +1,25 @@
+server:
+  port: 96
+
+spring:
+  application:
+    name: goop-cart
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  # nacos注册地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+  #thy缓存
+  thymeleaf:
+    cache: false
+  #redis地址
+  redis:
+    host: 192.168.56.10
+    port: 6379
+  #SpringSession存储类型
+  session:
+    store-type: redis
+
+

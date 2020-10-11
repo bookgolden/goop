@@ -1,0 +1,38 @@
+server:
+  port: 98
+
+spring:
+  application:
+    name: goop-third-party
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+#虚拟机 Nacos 地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+    #oss配置
+    alicloud:
+      #对象存储
+      access-key: LTAI4G38arxm6X8xwDi1mMtz
+      secret-key: iBxH0WAwlKdsMs43iWMpP4IuoAi8Rr
+      oss:
+        endpoint: oss-cn-shenzhen.aliyuncs.com
+
+      #短信服务
+      sms:
+        host: https://smsmsgs.market.alicloudapi.com
+        path: /sms/
+        sign: 1
+        skin: 1
+        appcode: 5acb3f67e8bd4411998985f2d5d7846c
+
+  #thymeleaf缓存
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    com.laoyang.product: debug
+

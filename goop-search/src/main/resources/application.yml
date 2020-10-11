@@ -1,0 +1,21 @@
+server:
+  port: 70
+
+spring:
+  application:
+    name: goop-search
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+  thymeleaf:
+    cache: false
+
+  #Redis配置
+  redis:
+    host: 192.168.56.10
+  #SpringSession配置
+  session:
+    store-type: redis

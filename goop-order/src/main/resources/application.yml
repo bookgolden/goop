@@ -1,0 +1,61 @@
+server:
+  port: 1111
+
+spring:
+  application:
+    name: goop-order
+
+  # db
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.56.10:3306/db_oms
+    driver-class-name: com.mysql.jdbc.Driver
+
+  #nacos 注册地址
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+  #redis地址
+  redis:
+    host: 192.168.56.10
+    port: 6379
+  #SpringSession存储类型
+  session:
+    store-type: redis
+
+  #RibbitMQ
+  rabbitmq:
+    host: 192.168.56.10
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    #开启发送端确认、确认被mq服务器交换机接收
+    publisher-confirms: true
+    #开启发送端消息抵达队列的确认、确认被路由到队列
+    publisher-returns: true
+    #只要抵达队列，以异步方式优先回调returnConfirm
+    template:
+      mandatory: true
+    #手动ack确认收到消息
+    listener:
+      simple:
+        acknowledge-mode: manual
+  # thy缓存
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+logging:
+  level:
+    com.atguigu: debug

@@ -1,0 +1,21 @@
+server:
+  port: 99
+  servlet:
+    session:
+      timeout: 10m
+
+spring:
+  application:
+    name: goop-auth
+  #cloud配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+
+  #Redis配置
+  redis:
+    host: 192.168.56.10
+  #SpringSession配置
+  session:
+    store-type: redis
